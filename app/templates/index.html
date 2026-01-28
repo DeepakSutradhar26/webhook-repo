@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Repo Actions</title>
+    <script>
+        async function fetchData() {
+            const fetched_data = await fetch('/api/data');
+            const data = await fetched_data.json();
+            
+            const ul = document.getElementsByClassName('events-list');
+
+            ul.innerHTML = '';
+            data.forEach(element => {
+                const li = document.createElement('li');
+                li.textContent = element;
+                ul.appendChild(li);
+            });
+        }
+
+        setInterval(fetchData, 15000);
+        window.onload(fetchData);
+    </script>
+</head>
+<body>
+    <h1>Latest Github Changes</h1>
+    <ul class="events-list"></ul>
+</body>
+</html>
