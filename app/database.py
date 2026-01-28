@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 
-client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient("mongodb+srv://<netninja>:<6vmKpPM7dXMHAyKQ>@clusterdata.wzwkvne.mongodb.net/?appName=ClusterData")
 db = client['github_events_db']
 collection = db['events']
 

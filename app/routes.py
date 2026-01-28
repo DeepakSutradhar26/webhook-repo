@@ -47,11 +47,11 @@ def fetch_data():
 
     for e in events:
         if e['action'] == 'PUSH':
-            message = f'"{e['author']}" pushed to "{e['branch']}" on {e['timestamp']} UTC'
+            message = f"\"{e['author']}\" pushed to \"{e['to_branch']}\" on {e['timestamp']} UTC"
         elif e['action'] == 'PULL_REQUEST':
-            message = f'"{e['author']}" submitted a pull request from {e['from_branch']} to {e['to_branch']} on {e['timestamp']} UTC'
+            message = f"\"{e['author']}\" submitted a pull request from {e['from_branch']} to {e['to_branch']} on {e['timestamp']} UTC"
         elif e['action'] == 'MERGED':
-            message = f'{e['author']} merged branch {e['from_branch']} to {e['to_branch']} on {e['timestamp']} UTC'
+            message = f"\"{e['author']}\" merged branch {e['from_branch']} to {e['to_branch']} on {e['timestamp']} UTC"
         messages.append(message)
 
     return jsonify(messages)
