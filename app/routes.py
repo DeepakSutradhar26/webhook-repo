@@ -18,7 +18,7 @@ def webhook():
             "action" : "PUSH",
             "from_branch" : "",
             "to_branch" : data['ref'].split('/')[-1],
-            "timestamp" : datetime.now(timezone.utc)
+            "timestamp" : datetime.now(timezone.utc).isoformat()
         }
     elif event_type == 'pull_request':
         action_type = 'MERGE' if data['pull_request']['merged'] else 'PULL_REQUEST'
@@ -28,12 +28,12 @@ def webhook():
             "action" : action_type,
             "from_branch" : data['pull_request']['head']['ref'],
             "to_branch" : data['pull_request']['base']['ref'],
-            "timestamp" : datetime.now(timezone.utc)
+            "timestamp" : datetime.now(timezone.utc).isoformat()
         }
 
     if event_document:
         save_event(event_document)
-    return jsonify({"status" : "success"}, 200)
+    return jsonify({"status" : "success"}), 200
 
 @main.route('/')
 def index():
@@ -50,7 +50,7 @@ def fetch_data():
             message = f"\"{e['author']}\" pushed to \"{e['to_branch']}\" on {e['timestamp']} UTC"
         elif e['action'] == 'PULL_REQUEST':
             message = f"\"{e['author']}\" submitted a pull request from {e['from_branch']} to {e['to_branch']} on {e['timestamp']} UTC"
-        elif e['action'] == 'MERGED':
+        elif e['action'] == 'MERGE':
             message = f"\"{e['author']}\" merged branch {e['from_branch']} to {e['to_branch']} on {e['timestamp']} UTC"
         messages.append(message)
 
